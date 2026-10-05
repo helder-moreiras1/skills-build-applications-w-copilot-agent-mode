@@ -2,6 +2,7 @@ const trimmedCodespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
 
 export const codespaceName = trimmedCodespaceName || ''
 export const isCodespacesApi = Boolean(codespaceName)
+
 export const apiBaseUrl = isCodespacesApi
   ? `https://${codespaceName}-8000.app.github.dev/api`
   : 'http://localhost:8000/api'
@@ -20,7 +21,9 @@ export function normalizeRecords(payload) {
   }
 
   const paginatedKeys = ['results', 'data', 'items', 'docs']
-  const records = paginatedKeys.map((key) => payload[key]).find(Array.isArray)
+  const records = paginatedKeys
+    .map((key) => payload[key])
+    .find(Array.isArray)
 
   return records || []
 }
